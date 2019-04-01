@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 
 const bodyParser = require('body-parser');
 
+const cors = require('cors');
+
 require('dotenv').config({ path: 'variables.env' });
 
 const Recipe = require('./models/Recipe');
@@ -30,6 +32,14 @@ mongoose
 
 // Initialized application
 const app = express();
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+};
+
+// Allow cross domain request from react to the backend
+app.use(cors(corsOptions));
 
 // Create GraphiQL application
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
